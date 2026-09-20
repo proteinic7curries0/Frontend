@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: black;
+  --color-sim-table: #191919;
+}
