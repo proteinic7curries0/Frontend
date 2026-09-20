@@ -18,6 +18,8 @@ export default function LineChart({ data, color }: { data: number[], color: stri
     const populationMax = Math.max(...data)
     const y = d3.scaleLinear([0, populationMax], [rect.height - marginBottom - 3, marginTop])
 
+    chart.selectAll("*").remove();
+    
     const area = d3.area<number>()
       .x((_, i) => x(i))
       .y0(rect.height - marginBottom - 3)
@@ -32,7 +34,7 @@ export default function LineChart({ data, color }: { data: number[], color: stri
     chart
       .append("g")
       .attr("transform", `translate(0, ${rect.height - marginBottom})`)
-      .call(d3.axisBottom(x).ticks(data.length))
+      .call(d3.axisBottom(x).ticks(Math.min(data.length, 6)))
     chart
       .append("g")
       .attr("transform", `translate(${marginLeft - 2}, 0)`)

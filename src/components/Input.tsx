@@ -1,10 +1,11 @@
 import { Input as BaseInput } from '@base-ui/react/input';
 
-export default function Input({ title, placeholder, value, onChange }: { title: string, placeholder: string, value: string | null, onChange: (value: string) => void }) {
+export default function Input({ title, placeholder, value, onChange, type }: { title: string, placeholder: string, value: string | null, onChange: (value: string) => void, type: React.HTMLInputTypeAttribute }) {
   return (
     <label className="flex flex-col items-start gap-1 text-sm font-semibold text-neutral-950 dark:text-white">
       {title}
       <BaseInput
+        type={type}
         placeholder={placeholder}
         value={value === null ? undefined : value}
         onChange={(e) => onChange(e.target.value)}

@@ -2,15 +2,20 @@ import { Tabs } from "@base-ui/react/tabs";
 import { panelClassName } from "../styles";
 import LineChart from "../components/LineChart";
 import PieChart from "../components/PieChart";
+import type { Agent } from "../model/agent";
+import { useMemo } from "react";
 
-export default function StatisticsTab() {
+export default function StatisticsTab({ populationHistory, saturationHistory, agents }: { populationHistory: number[], saturationHistory: number[], agents: Agent[] }) {
+    const strenghs = useMemo(() => Array.from(agents.map((a) => a.strength)), [agents])
+    const intelligences = useMemo(() => Array.from(agents.map((a) => a.intelligence)), [agents])
+    
     return (
         <Tabs.Panel className={panelClassName} value="statistics">
             <div className="flex flex-col">
                 <h1 className="text-2xl">Population</h1>
                 <LineChart
                     data={
-                        [20, 15, 30, 7, 50, 20]
+                        populationHistory
                     }
                     color="fill-blue-500"
                 />
@@ -19,7 +24,7 @@ export default function StatisticsTab() {
                 <h1 className="text-2xl">Saturation</h1>
                 <LineChart
                     data={
-                        [20, 15, 30, 7, 50, 20]
+                        saturationHistory
                     }
                     color="fill-red-500"
                 />
@@ -29,7 +34,7 @@ export default function StatisticsTab() {
                     <h1 className="text-2xl">Strength distribution</h1>
                     <PieChart
                         data={
-                            [20, 10, 45, 100, 86, 56, 23, 64, 8]
+                           strenghs 
                         }
                         colors={
                             ["fill-orange-500", "fill-green-500", "fill-blue-500", "fill-red-500"]
@@ -40,7 +45,7 @@ export default function StatisticsTab() {
                     <h1 className="text-2xl">Intelligence distribution</h1>
                     <PieChart
                         data={
-                            [20, 10, 45, 100, 86, 56, 23, 64, 8]
+                            intelligences
                         }
                         colors={
                             ["fill-orange-500", "fill-green-500", "fill-blue-500", "fill-red-500"]
